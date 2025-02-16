@@ -3,7 +3,8 @@ import toast from "react-hot-toast";
 import axios from "@/lib/axiosInstance";
 
 interface signUpData {
-  username: string;
+  name: string;
+  lastName: string;
   email: string;
   password: string;
 }
