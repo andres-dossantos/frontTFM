@@ -10,7 +10,7 @@ const font = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "BaseApp",
+  title: "Country Find",
   description: "A next js template for building apps",
 };
 

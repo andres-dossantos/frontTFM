@@ -49,21 +49,22 @@ const LoginPage = () => {
     <div className="flex flex-col h-screen justify-center items-center bg-slate-50">
       <Card className="min-w-[450px]">
         <CardHeader className="mb-5">
-          <CardTitle className="text-2xl text-center">BaseApp</CardTitle>
+          <CardTitle className="text-2xl text-center">Country Find</CardTitle>
+          <CardTitle className="text-1xl text-center">¡Busca tu siguiente Hogar!</CardTitle>
           <CardDescription className="text-center">
-            Enter your email and password to login
+            Introduce tu correo y contraseña para acceder
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form
-            className="flex flex-col gap-6"
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleSubmit();
-            }}
+              className="flex flex-col gap-6"
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSubmit();
+              }}
           >
             <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">Correo electrónico</Label>
               <Input
                 id="email"
                 type="email"
@@ -75,13 +76,13 @@ const LoginPage = () => {
             </div>
             <div className="grid gap-2">
               <div className="flex items-center">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">Contraseña</Label>
                 <a
                   href=""
                   className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                   onClick={handleForgotPassword}
                 >
-                  Forgot your password?
+                  ¿Olvidaste tu contraseña?
                 </a>
               </div>
               <Input
@@ -96,18 +97,12 @@ const LoginPage = () => {
               Login
               {loadingLogin && <Spinner />}
             </Button>
+            <Button className="w-full" size="default" type="submit">
+              Registrate
+              {loadingLogin && <Spinner />}
+            </Button>
           </form>
           <div className="flex justify-center items-center mt-4">
-            <Button
-              variant="link"
-              asChild
-              size="sm"
-              className="text-xs font-medium text-slate-500"
-            >
-              <Link href="https://luisguareschi.com">
-                Made by Luis Guareschi
-              </Link>
-            </Button>
           </div>
         </CardContent>
       </Card>
