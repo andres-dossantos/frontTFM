@@ -19,6 +19,7 @@ const RegisterPage = () => {
   });
 
     const [registerForm, setRegisterForm] = useState({
+    username: "",
     email: "",
     password: "",
     name: "",
@@ -34,6 +35,7 @@ const RegisterPage = () => {
 
     const handleSubmit = () => {
     register({
+      username: registerForm.username,
       email: registerForm.email,
       password: registerForm.password,
       name: registerForm.name,
@@ -61,6 +63,19 @@ const RegisterPage = () => {
                           handleSubmit();
                       }}
                   >
+
+                      <div className="grid gap-2">
+                          <div className="flex items-center">
+                              <Label htmlFor="password">Nombre de Usuario</Label>
+                          </div>
+                          <Input
+                              id="username"
+                              type="username"
+                              name="username"
+                              onChange={handleChange}
+                              value={registerForm.username}
+                          />
+                      </div>
 
                       <div className="grid gap-2">
                           <div className="flex items-center">
@@ -115,6 +130,12 @@ const RegisterPage = () => {
                           Registrar
                           {loadingRegister && <Spinner/>}
                       </Button>
+                      <Link href="/login">
+                          <Button className="w-full" size="default">
+                              Ya tengo cuenta
+                              {loadingRegister && <Spinner/>}
+                          </Button>
+                      </Link>
                   </form>
                   <div className="flex justify-center items-center mt-4">
                   </div>
