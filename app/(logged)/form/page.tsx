@@ -29,7 +29,7 @@ const Form = () => {
                       </a>
                   </li>
                   <li>
-                      <a href="aa" className="hover:underline">
+                      <a href="aaa" className="hover:underline">
                           Gráficas
                       </a>
                   </li>
