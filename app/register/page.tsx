@@ -14,7 +14,7 @@ const RegisterPage = () => {
   const router = useRouter();
   const { mutate: register, isPending: loadingRegister } = useSignUp({
     onSuccess: () => {
-      router.replace("/home");
+      router.replace("/login");
     },
   });
 
