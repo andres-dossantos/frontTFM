@@ -1,6 +1,7 @@
 "use client";
 import useCurrentUser from "@/queries/auth/useCurrentUser";
 import { useRouter } from "next/navigation";
+import { Navbar } from "@/components/common/navbar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -10,5 +11,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     router.replace("/login");
   }
 
-  return <>{children}</>;
-}
+  return (
+    <div>
+      <Navbar/>
+      {children}
+    </div>
+  );
+};
