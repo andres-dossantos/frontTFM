@@ -7,6 +7,13 @@
  * API para el sistema de BaseApp Backend
  */
 
+export type FormsListParams = {
+  /**
+   * A search term.
+   */
+  search?: string;
+};
+
 /**
  * * `Agricultura / Pesca` - Agricultura Pesca
  * `Tecnología / Innovación` - Tecnologia Innovacion
