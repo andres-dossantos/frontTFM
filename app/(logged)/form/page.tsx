@@ -20,21 +20,18 @@ import {
 import Link from "next/link";
 import {
   GenderEnum,
-  AgricultureEconomyEnum,
-  EaseOfBusinessEnum,
-  ExportEconomyEnum,
-  WorkSectorEnum,
-  UnemploymentRateEnum,
+  CountrySalaryEnum,
   JobSecurityEnum,
-  AirPollutionEnum,
-  LivingAreaEnum,
+  UnemploymentRateEnum,
+  CorruptionEnum,
   HealthcareImportanceEnum,
-  MobileAccessEnum,
-  ResearchDevelopmentEnum,
-  LowTaxesEnum,
-  CompanyRegistrationEnum,
-  PovertyReductionEnum,
-  UnemploymentSupportEnum,
+  EconomyEnum,
+  FreedomEnum,
+  AirPollutionEnum,
+  LowInflationEnum,
+  ForeignInvestmentEnum,
+  CityGrowthEnum,
+  LivingAreaEnum,
 } from "@/api/baseAppBackendAPI.schemas";
 import { useEffect, useState } from "react";
 import Spinner from "@/components/common/spinner";
@@ -64,25 +61,19 @@ const Form = () => {
   const [formsForm, setFormsForm] = useState({
     user: undefined,
     age: undefined,
-    salary: undefined,
     gender: undefined,
-    agriculture_economy: undefined,
-    ease_of_business: undefined,
-    export_economy: undefined,
-    work_sector: undefined,
-    unemployment_rate: undefined,
+    country_salary: undefined,
     job_security: undefined,
-    air_pollution: undefined,
-    living_area: undefined,
+    unemployment_rate: undefined,
+    corruption: undefined,
     healthcare_importance: undefined,
-    mobile_access: undefined,
-    research_development: undefined,
-    low_taxes: undefined,
-    company_registration: undefined,
-    poverty_reduction: undefined,
-    unemployment_support: undefined,
+    economy: undefined,
+    freedom: undefined,
+    air_pollution: undefined,
+    low_inflation: undefined,
     foreign_investment: undefined,
-    electricity_access: undefined,
+    city_growth: undefined,
+    living_area: undefined,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -102,25 +93,19 @@ const Form = () => {
         data: {
           user: user?.id || 0,
           age: formsForm.age || 0,
-          salary: formsForm.salary || 0,
           gender: formsForm.gender,
-          agriculture_economy: formsForm.agriculture_economy,
-          ease_of_business: formsForm.ease_of_business,
-          foreign_investment: formsForm.foreign_investment,
-          export_economy: formsForm.export_economy,
-          work_sector: formsForm.work_sector,
-          unemployment_rate: formsForm.unemployment_rate,
+          country_salary: formsForm.country_salary,
           job_security: formsForm.job_security,
-          electricity_access: formsForm.electricity_access,
-          air_pollution: formsForm.air_pollution,
-          living_area: formsForm.living_area,
+          unemployment_rate: formsForm.unemployment_rate,
+          corruption: formsForm.corruption,
           healthcare_importance: formsForm.healthcare_importance,
-          mobile_access: formsForm.mobile_access,
-          research_development: formsForm.research_development,
-          low_taxes: formsForm.low_taxes,
-          company_registration: formsForm.company_registration,
-          poverty_reduction: formsForm.poverty_reduction,
-          unemployment_support: formsForm.unemployment_support,
+          economy: formsForm.economy,
+          freedom: formsForm.freedom,
+          air_pollution: formsForm.air_pollution,
+          low_inflation: formsForm.low_inflation,
+          foreign_investment: formsForm.foreign_investment,
+          city_growth: formsForm.city_growth,
+          living_area: formsForm.living_area,
         },
       });
       return;
@@ -130,25 +115,19 @@ const Form = () => {
       data: {
         user: user?.id || 0,
         age: formsForm.age || 0,
-        salary: formsForm.salary || 0,
         gender: formsForm.gender,
-        agriculture_economy: formsForm.agriculture_economy,
-        ease_of_business: formsForm.ease_of_business,
-        foreign_investment: formsForm.foreign_investment,
-        export_economy: formsForm.export_economy,
-        work_sector: formsForm.work_sector,
-        unemployment_rate: formsForm.unemployment_rate,
+        country_salary: formsForm.country_salary,
         job_security: formsForm.job_security,
-        electricity_access: formsForm.electricity_access,
-        air_pollution: formsForm.air_pollution,
-        living_area: formsForm.living_area,
+        unemployment_rate: formsForm.unemployment_rate,
+        corruption: formsForm.corruption,
         healthcare_importance: formsForm.healthcare_importance,
-        mobile_access: formsForm.mobile_access,
-        research_development: formsForm.research_development,
-        low_taxes: formsForm.low_taxes,
-        company_registration: formsForm.company_registration,
-        poverty_reduction: formsForm.poverty_reduction,
-        unemployment_support: formsForm.unemployment_support,
+        economy: formsForm.economy,
+        freedom: formsForm.freedom,
+        air_pollution: formsForm.air_pollution,
+        low_inflation: formsForm.low_inflation,
+        foreign_investment: formsForm.foreign_investment,
+        city_growth: formsForm.city_growth,
+        living_area: formsForm.living_area,
       },
     });
   };
@@ -164,25 +143,19 @@ const Form = () => {
     setFormsForm({
       ...formsForm,
       age: userForm.age || 0,
-      salary: userForm.salary || 0,
       gender: userForm.gender,
-      agriculture_economy: userForm.agriculture_economy,
-      ease_of_business: userForm.ease_of_business,
-      foreign_investment: userForm.foreign_investment,
-      export_economy: userForm.export_economy,
-      work_sector: userForm.work_sector,
-      unemployment_rate: userForm.unemployment_rate,
+      country_salary: userForm.country_salary,
       job_security: userForm.job_security,
-      electricity_access: userForm.electricity_access,
-      air_pollution: userForm.air_pollution,
-      living_area: userForm.living_area,
+      unemployment_rate: userForm.unemployment_rate,
+      corruption: userForm.corruption,
       healthcare_importance: userForm.healthcare_importance,
-      mobile_access: userForm.mobile_access,
-      research_development: userForm.research_development,
-      low_taxes: userForm.low_taxes,
-      company_registration: userForm.company_registration,
-      poverty_reduction: userForm.poverty_reduction,
-      unemployment_support: userForm.unemployment_support,
+      economy: userForm.economy,
+      freedom: userForm.freedom,
+      air_pollution: userForm.air_pollution,
+      low_inflation: userForm.low_inflation,
+      foreign_investment: userForm.foreign_investment,
+      city_growth: userForm.city_growth,
+      living_area: userForm.living_area,
     });
   }, [userForms]);
 
@@ -244,578 +217,317 @@ const Form = () => {
               </div>
 
               <div className="grid gap-2">
-                <Label htmlFor="salary" className="text-left">
-                  ¿Cuál es tu ingreso mensual aproximado en dólares?
-                </Label>
-                <Input
-                  id="salary"
-                  type="number"
-                  name="salary"
-                  step="0.01"
-                  min="0"
-                  onChange={handleChange}
-                  value={formsForm.salary}
-                />
-              </div>
-
-              <div className="grid gap-2">
-                <Label htmlFor="agriculture_economy" className="text-left">
-                  ¿Te interesa un país con una economía agrícola fuerte?
+                <Label htmlFor="country_salary" className="text-left">
+                  ¿Qué tan importante es para ti que los salarios en el país sean altos?
                 </Label>
                 <Select
-                  name="agriculture_economy"
-                  onValueChange={(value: AgricultureEconomyEnum) => {
+                  name="country_salary"
+                  onValueChange={(value: CountrySalaryEnum) => {
                     setFormsForm({
                       ...formsForm,
-                      agriculture_economy: value,
+                      country_salary: value,
                     });
                   }}
-                  value={formsForm.agriculture_economy}
+                  value={formsForm.country_salary}
                 >
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem
-                      value={
-                        AgricultureEconomyEnum[
-                          "Sí,_prefiero_un_país_con_oportunidades_en_agricultura"
-                        ]
-                      }
-                    >
-                      Sí, prefiero un país con oportunidades en agricultura.
-                    </SelectItem>
-                    <SelectItem
-                      value={
-                        AgricultureEconomyEnum[
-                          "No,_prefiero_un_país_con_una_economía_diversificada"
-                        ]
-                      }
-                    >
-                      No, prefiero un país con una economía diversificada.
-                    </SelectItem>
-                    <SelectItem value={AgricultureEconomyEnum.No_me_importa}>
-                      No me importa.
-                    </SelectItem>
+                    <SelectItem value={CountrySalaryEnum.Muy_importante}>Muy importante</SelectItem>
+                    <SelectItem value={CountrySalaryEnum.Importante}>Importante</SelectItem>
+                    <SelectItem value={CountrySalaryEnum.Poco_importante}>Poco importante</SelectItem>
+                    <SelectItem value={CountrySalaryEnum.Nada_importante}>Nada importante</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
-              <Label htmlFor="ease_of_business">
-                ¿Qué tan importante es la facilidad para hacer negocios en el
-                país?
-              </Label>
-              <Select
-                name="ease_of_business"
-                onValueChange={(value: EaseOfBusinessEnum) => {
-                  setFormsForm({
-                    ...formsForm,
-                    ease_of_business: value,
-                  });
-                }}
-                value={formsForm.ease_of_business}
-              >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem
-                    value={
-                      EaseOfBusinessEnum[
-                        "Muy_importante_(Quiero_emprender_o_invertir)"
-                      ]
-                    }
-                  >
-                    Muy importante (Quiero emprender o invertir).
-                  </SelectItem>
-                  <SelectItem
-                    value={
-                      EaseOfBusinessEnum[
-                        "Moderadamente_importante_(Podría_considerar_oportunidades)"
-                      ]
-                    }
-                  >
-                    Moderadamente importante (Podría considerar oportunidades).
-                  </SelectItem>
-                  <SelectItem
-                    value={EaseOfBusinessEnum.No_es_importante_para_mí}
-                  >
-                    No es importante para mí.
-                  </SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="grid gap-2">
+                <Label htmlFor="job_security" className="text-left">
+                  ¿Qué tan importante es que sea fácil abrir un negocio o encontrar empleo?
+                </Label>
+                <Select
+                  name="job_security"
+                  onValueChange={(value: JobSecurityEnum) => {
+                    setFormsForm({
+                      ...formsForm,
+                      job_security: value,
+                    });
+                  }}
+                  value={formsForm.job_security}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={JobSecurityEnum.Muy_importante}>Muy importante</SelectItem>
+                    <SelectItem value={JobSecurityEnum.Importante}>Importante</SelectItem>
+                    <SelectItem value={JobSecurityEnum.Poco_importante}>Poco importante</SelectItem>
+                    <SelectItem value={JobSecurityEnum.Nada_importante}>Nada importante</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-              <Label htmlFor="foreign_investment">
-                ¿Qué tan importante es la inversión extranjera en el país?
-              </Label>
-              <Select
-                name="foreign_investment"
-                onValueChange={(value: MobileAccessEnum) => {
-                  setFormsForm({
-                    ...formsForm,
-                    foreign_investment: value,
-                  });
-                }}
-                value={formsForm.foreign_investment}
-              >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value={MobileAccessEnum.Muy_importante}>
-                    Muy importante.
-                  </SelectItem>
-                  <SelectItem value={MobileAccessEnum.No_me_importa}>
-                    No me importa.
-                  </SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="grid gap-2">
+                <Label htmlFor="unemployment_rate" className="text-left">
+                  ¿Qué tan importante es que haya pocas personas desempleadas?
+                </Label>
+                <Select
+                  name="unemployment_rate"
+                  onValueChange={(value: UnemploymentRateEnum) => {
+                    setFormsForm({
+                      ...formsForm,
+                      unemployment_rate: value,
+                    });
+                  }}
+                  value={formsForm.unemployment_rate}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={UnemploymentRateEnum.Muy_importante}>Muy importante</SelectItem>
+                    <SelectItem value={UnemploymentRateEnum.Importante}>Importante</SelectItem>
+                    <SelectItem value={UnemploymentRateEnum.Poco_importante}>Poco importante</SelectItem>
+                    <SelectItem value={UnemploymentRateEnum.Nada_importante}>Nada importante</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-              <Label htmlFor="export_economy">
-                ¿Prefieres un país con una economía basada en la exportación?
-              </Label>
-              <Select
-                name="export_economy"
-                onValueChange={(value: ExportEconomyEnum) => {
-                  setFormsForm({
-                    ...formsForm,
-                    export_economy: value,
-                  });
-                }}
-                value={formsForm.export_economy}
-              >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem
-                    value={
-                      ExportEconomyEnum[
-                        "Sí,_quiero_un_país_con_un_alto_nivel_de_comercio_internacional"
-                      ]
-                    }
-                  >
-                    Sí, quiero un país con un alto nivel de comercio
-                    internacional.
-                  </SelectItem>
-                  <SelectItem value={ExportEconomyEnum.No_es_relevante_para_mí}>
-                    No es relevante para mí.
-                  </SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="grid gap-2">
+                <Label htmlFor="corruption" className="text-left">
+                  ¿Qué tan importante es vivir en un país con baja corrupción?
+                </Label>
+                <Select
+                  name="corruption"
+                  onValueChange={(value: CorruptionEnum) => {
+                    setFormsForm({
+                      ...formsForm,
+                      corruption: value,
+                    });
+                  }}
+                  value={formsForm.corruption}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={CorruptionEnum.Muy_importante}>Muy importante</SelectItem>
+                    <SelectItem value={CorruptionEnum.Importante}>Importante</SelectItem>
+                    <SelectItem value={CorruptionEnum.Poco_importante}>Poco importante</SelectItem>
+                    <SelectItem value={CorruptionEnum.Nada_importante}>Nada importante</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-              <Label htmlFor="work_sector">
-                ¿En qué sector trabajas o te gustaría trabajar?
-              </Label>
-              <Select
-                name="work_sector"
-                onValueChange={(value: WorkSectorEnum) => {
-                  setFormsForm({
-                    ...formsForm,
-                    work_sector: value,
-                  });
-                }}
-                value={formsForm.work_sector}
-              >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value={WorkSectorEnum["Agricultura_/_Pesca"]}>
-                    Agricultura / Pesca
-                  </SelectItem>
-                  <SelectItem value={WorkSectorEnum["Tecnología_/_Innovación"]}>
-                    Tecnología / Innovación
-                  </SelectItem>
-                  <SelectItem
-                    value={WorkSectorEnum["Negocios_/_Emprendimiento"]}
-                  >
-                    Negocios / Emprendimiento
-                  </SelectItem>
-                  <SelectItem value={WorkSectorEnum["Educación_/_Salud"]}>
-                    Educación / Salud
-                  </SelectItem>
-                  <SelectItem value={WorkSectorEnum["Industria_/_Manufactura"]}>
-                    Industria / Manufactura
-                  </SelectItem>
-                  <SelectItem value={WorkSectorEnum.Otros}>Otros</SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="grid gap-2">
+                <Label htmlFor="healthcare_importance" className="text-left">
+                  ¿Qué tan importante es para ti que haya buenos médicos y hospitales accesibles?
+                </Label>
+                <Select
+                  name="healthcare_importance"
+                  onValueChange={(value: HealthcareImportanceEnum) => {
+                    setFormsForm({
+                      ...formsForm,
+                      healthcare_importance: value,
+                    });
+                  }}
+                  value={formsForm.healthcare_importance}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={HealthcareImportanceEnum.Muy_importante}>Muy importante</SelectItem>
+                    <SelectItem value={HealthcareImportanceEnum.Importante}>Importante</SelectItem>
+                    <SelectItem value={HealthcareImportanceEnum.Poco_importante}>Poco importante</SelectItem>
+                    <SelectItem value={HealthcareImportanceEnum.Nada_importante}>Nada importante</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-              <Label htmlFor="unemployment_rate">
-                ¿Qué tan importante es la tasa de desempleo para ti?
-              </Label>
-              <Select
-                name="unemployment_rate"
-                onValueChange={(value: UnemploymentRateEnum) => {
-                  setFormsForm({
-                    ...formsForm,
-                    unemployment_rate: value,
-                  });
-                }}
-                value={formsForm.unemployment_rate}
-              >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem
-                    value={
-                      UnemploymentRateEnum.Quiero_un_país_con_muy_baja_tasa_de_desempleo
-                    }
-                  >
-                    Quiero un país con muy baja tasa de desempleo.
-                  </SelectItem>
-                  <SelectItem
-                    value={
-                      UnemploymentRateEnum.No_me_importa_mucho_la_tasa_de_desempleo
-                    }
-                  >
-                    No me importa mucho la tasa de desempleo.
-                  </SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="grid gap-2">
+                <Label htmlFor="economy" className="text-left">
+                  ¿Qué tan importante es que la economía del país esté creciendo constantemente?
+                </Label>
+                <Select
+                  name="economy"
+                  onValueChange={(value: EconomyEnum) => {
+                    setFormsForm({
+                      ...formsForm,
+                      economy: value,
+                    });
+                  }}
+                  value={formsForm.economy}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={EconomyEnum.Muy_importante}>Muy importante</SelectItem>
+                    <SelectItem value={EconomyEnum.Importante}>Importante</SelectItem>
+                    <SelectItem value={EconomyEnum.Poco_importante}>Poco importante</SelectItem>
+                    <SelectItem value={EconomyEnum.Nada_importante}>Nada importante</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-              <Label htmlFor="job_security">
-                ¿Qué nivel de seguridad laboral prefieres?
-              </Label>
-              <Select
-                name="job_security"
-                onValueChange={(value: JobSecurityEnum) => {
-                  setFormsForm({
-                    ...formsForm,
-                    job_security: value,
-                  });
-                }}
-                value={formsForm.job_security}
-              >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem
-                    value={
-                      JobSecurityEnum.Prefiero_un_país_con_empleos_estables_y_buenos_contratos
-                    }
-                  >
-                    Prefiero un país con empleos estables y buenos contratos.
-                  </SelectItem>
-                  <SelectItem
-                    value={
-                      JobSecurityEnum.No_me_importa_si_el_empleo_es_informal_o_vulnerable
-                    }
-                  >
-                    No me importa si el empleo es informal o vulnerable.
-                  </SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="grid gap-2">
+                <Label htmlFor="freedom" className="text-left">
+                  ¿Qué tan importante es vivir en un país con más libertades personales y económicas?
+                </Label>
+                <Select
+                  name="freedom"
+                  onValueChange={(value: FreedomEnum) => {
+                    setFormsForm({
+                      ...formsForm,
+                      freedom: value,
+                    });
+                  }}
+                  value={formsForm.freedom}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={FreedomEnum.Muy_importante}>Muy importante</SelectItem>
+                    <SelectItem value={FreedomEnum.Importante}>Importante</SelectItem>
+                    <SelectItem value={FreedomEnum.Poco_importante}>Poco importante</SelectItem>
+                    <SelectItem value={FreedomEnum.Nada_importante}>Nada importante</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-              <Label htmlFor="electricity_access">
-                ¿Qué tan importante es el acceso a la electricidad en zonas
-                urbanas?
-              </Label>
-              <Select
-                name="electricity_access"
-                onValueChange={(value: MobileAccessEnum) => {
-                  setFormsForm({
-                    ...formsForm,
-                    electricity_access: value,
-                  });
-                }}
-                value={formsForm.electricity_access}
-              >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value={MobileAccessEnum.Muy_importante}>
-                    Muy importante.
-                  </SelectItem>
-                  <SelectItem value={MobileAccessEnum.No_me_importa}>
-                    No me importa.
-                  </SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="grid gap-2">
+                <Label htmlFor="air_pollution" className="text-left">
+                  ¿Qué tan importante es para ti vivir en un país con aire limpio?
+                </Label>
+                <Select
+                  name="air_pollution"
+                  onValueChange={(value: AirPollutionEnum) => {
+                    setFormsForm({
+                      ...formsForm,
+                      air_pollution: value,
+                    });
+                  }}
+                  value={formsForm.air_pollution}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={AirPollutionEnum.Muy_importante}>Muy importante</SelectItem>
+                    <SelectItem value={AirPollutionEnum.Importante}>Importante</SelectItem>
+                    <SelectItem value={AirPollutionEnum.Poco_importante}>Poco importante</SelectItem>
+                    <SelectItem value={AirPollutionEnum.Nada_importante}>Nada importante</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-              <Label htmlFor="air_pollution">
-                ¿Qué tan importante es la contaminación del aire en tu decisión?
-              </Label>
-              <Select
-                name="air_pollution"
-                onValueChange={(value: AirPollutionEnum) => {
-                  setFormsForm({
-                    ...formsForm,
-                    air_pollution: value,
-                  });
-                }}
-                value={formsForm.air_pollution}
-              >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem
-                    value={
-                      AirPollutionEnum[
-                        "Muy_importante,_quiero_vivir_en_un_país_con_baja_contaminación"
-                      ]
-                    }
-                  >
-                    Muy importante, quiero vivir en un país con baja
-                    contaminación.
-                  </SelectItem>
-                  <SelectItem value={AirPollutionEnum.No_me_importa_mucho}>
-                    No me importa mucho.
-                  </SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="grid gap-2">
+                <Label htmlFor="low_inflation" className="text-left">
+                  ¿Qué tan importante es que los precios se mantengan estables y la inflación sea baja?
+                </Label>
+                <Select
+                  name="low_inflation"
+                  onValueChange={(value: LowInflationEnum) => {
+                    setFormsForm({
+                      ...formsForm,
+                      low_inflation: value,
+                    });
+                  }}
+                  value={formsForm.low_inflation}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={LowInflationEnum.Muy_importante}>Muy importante</SelectItem>
+                    <SelectItem value={LowInflationEnum.Importante}>Importante</SelectItem>
+                    <SelectItem value={LowInflationEnum.Poco_importante}>Poco importante</SelectItem>
+                    <SelectItem value={LowInflationEnum.Nada_importante}>Nada importante</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-              <Label htmlFor="living_area">
-                ¿Quieres vivir en una ciudad o en un área rural?
-              </Label>
-              <Select
-                name="living_area"
-                onValueChange={(value: LivingAreaEnum) => {
-                  setFormsForm({
-                    ...formsForm,
-                    living_area: value,
-                  });
-                }}
-                value={formsForm.living_area}
-              >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value={LivingAreaEnum.Ciudad}>Ciudad.</SelectItem>
-                  <SelectItem value={LivingAreaEnum.Rural}>Rural.</SelectItem>
-                  <SelectItem value={LivingAreaEnum.No_me_importa}>
-                    No me importa.
-                  </SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="grid gap-2">
+                <Label htmlFor="foreign_investment" className="text-left">
+                  ¿Qué tan importante es que el país reciba inversión extranjera?
+                </Label>
+                <Select
+                  name="foreign_investment"
+                  onValueChange={(value: ForeignInvestmentEnum) => {
+                    setFormsForm({
+                      ...formsForm,
+                      foreign_investment: value,
+                    });
+                  }}
+                  value={formsForm.foreign_investment}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={ForeignInvestmentEnum.Muy_importante}>Muy importante</SelectItem>
+                    <SelectItem value={ForeignInvestmentEnum.Importante}>Importante</SelectItem>
+                    <SelectItem value={ForeignInvestmentEnum.Poco_importante}>Poco importante</SelectItem>
+                    <SelectItem value={ForeignInvestmentEnum.Nada_importante}>Nada importante</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-              <Label htmlFor="healthcare_importance">
-                ¿Qué tan importante es el sistema de salud?
-              </Label>
-              <Select
-                name="healthcare_importance"
-                onValueChange={(value: HealthcareImportanceEnum) => {
-                  setFormsForm({
-                    ...formsForm,
-                    healthcare_importance: value,
-                  });
-                }}
-                value={formsForm.healthcare_importance}
-              >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem
-                    value={
-                      HealthcareImportanceEnum[
-                        "Muy_importante,_quiero_un_país_con_buena_atención_médica"
-                      ]
-                    }
-                  >
-                    Muy importante, quiero un país con buena atención médica.
-                  </SelectItem>
-                  <SelectItem
-                    value={HealthcareImportanceEnum.No_me_importa_mucho}
-                  >
-                    No me importa mucho.
-                  </SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="grid gap-2">
+                <Label htmlFor="city_growth" className="text-left">
+                  ¿Qué tan importante es para ti vivir en una ciudad en crecimiento con nuevas oportunidades?
+                </Label>
+                <Select
+                  name="city_growth"
+                  onValueChange={(value: CityGrowthEnum) => {
+                    setFormsForm({
+                      ...formsForm,
+                      city_growth: value,
+                    });
+                  }}
+                  value={formsForm.city_growth}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={CityGrowthEnum.Muy_importante}>Muy importante</SelectItem>
+                    <SelectItem value={CityGrowthEnum.Importante}>Importante</SelectItem>
+                    <SelectItem value={CityGrowthEnum.Poco_importante}>Poco importante</SelectItem>
+                    <SelectItem value={CityGrowthEnum.Nada_importante}>Nada importante</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-              <Label htmlFor="mobile_access">
-                ¿Qué tan importante es el acceso a la telefonía móvil y la
-                tecnología?
-              </Label>
-              <Select
-                name="mobile_access"
-                onValueChange={(value: MobileAccessEnum) => {
-                  setFormsForm({
-                    ...formsForm,
-                    mobile_access: value,
-                  });
-                }}
-                value={formsForm.mobile_access}
-              >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value={MobileAccessEnum.Muy_importante}>
-                    Muy importante.
-                  </SelectItem>
-                  <SelectItem value={MobileAccessEnum.No_me_importa}>
-                    No me importa.
-                  </SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="grid gap-2">
+                <Label htmlFor="living_area" className="text-left">
+                  ¿Qué tan importante es que haya muchas opciones de comercio, servicios y entretenimiento?
+                </Label>
+                <Select
+                  name="living_area"
+                  onValueChange={(value: LivingAreaEnum) => {
+                    setFormsForm({
+                      ...formsForm,
+                      living_area: value,
+                    });
+                  }}
+                  value={formsForm.living_area}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={LivingAreaEnum.Muy_importante}>Muy importante</SelectItem>
+                    <SelectItem value={LivingAreaEnum.Importante}>Importante</SelectItem>
+                    <SelectItem value={LivingAreaEnum.Poco_importante}>Poco importante</SelectItem>
+                    <SelectItem value={LivingAreaEnum.Nada_importante}>Nada importante</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-              <Label htmlFor="research_development">
-                ¿Prefieres un país con alta inversión en investigación y
-                desarrollo?
-              </Label>
-              <Select
-                name="research_development"
-                onValueChange={(value: ResearchDevelopmentEnum) => {
-                  setFormsForm({
-                    ...formsForm,
-                    research_development: value,
-                  });
-                }}
-                value={formsForm.research_development}
-              >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem
-                    value={
-                      ResearchDevelopmentEnum["Sí,_prefiero_un_país_innovador"]
-                    }
-                  >
-                    Sí, prefiero un país innovador.
-                  </SelectItem>
-                  <SelectItem
-                    value={ResearchDevelopmentEnum.No_es_una_prioridad_para_mí}
-                  >
-                    No es una prioridad para mí.
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-
-              <Label htmlFor="low_taxes">
-                ¿Prefieres un país con impuestos más bajos?
-              </Label>
-              <Select
-                name="low_taxes"
-                onValueChange={(value: LowTaxesEnum) => {
-                  setFormsForm({
-                    ...formsForm,
-                    low_taxes: value,
-                  });
-                }}
-                value={formsForm.low_taxes}
-              >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem
-                    value={
-                      LowTaxesEnum[
-                        "Sí,_quiero_un_país_con_menor_carga_impositiva"
-                      ]
-                    }
-                  >
-                    Sí, quiero un país con menor carga impositiva.
-                  </SelectItem>
-                  <SelectItem value={LowTaxesEnum.No_me_importa}>
-                    No me importa.
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-
-              <Label htmlFor="company_registration">
-                ¿Quieres un país con facilidad para registrar empresas?
-              </Label>
-              <Select
-                name="company_registration"
-                onValueChange={(value: CompanyRegistrationEnum) => {
-                  setFormsForm({
-                    ...formsForm,
-                    company_registration: value,
-                  });
-                }}
-                value={formsForm.company_registration}
-              >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem
-                    value={
-                      CompanyRegistrationEnum[
-                        "Sí,_quiero_facilidades_para_emprender"
-                      ]
-                    }
-                  >
-                    Sí, quiero facilidades para emprender.
-                  </SelectItem>
-                  <SelectItem value={CompanyRegistrationEnum.No_me_importa}>
-                    No me importa.
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-
-              <Label htmlFor="poverty_reduction">
-                ¿Qué tan importante es la reducción de la pobreza en el país?
-              </Label>
-              <Select
-                name="poverty_reduction"
-                onValueChange={(value: PovertyReductionEnum) => {
-                  setFormsForm({
-                    ...formsForm,
-                    poverty_reduction: value,
-                  });
-                }}
-                value={formsForm.poverty_reduction}
-              >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem
-                    value={
-                      PovertyReductionEnum[
-                        "Muy_importante,_quiero_un_país_con_menos_desigualdad"
-                      ]
-                    }
-                  >
-                    Muy importante, quiero un país con menos desigualdad.
-                  </SelectItem>
-                  <SelectItem value={PovertyReductionEnum.No_es_una_prioridad}>
-                    No es una prioridad.
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-
-              <Label htmlFor="unemployment_support">
-                ¿Te gustaría que el país tenga programas de apoyo al desempleo?
-              </Label>
-              <Select
-                name="unemployment_support"
-                onValueChange={(value: UnemploymentSupportEnum) => {
-                  setFormsForm({
-                    ...formsForm,
-                    unemployment_support: value,
-                  });
-                }}
-                value={formsForm.unemployment_support}
-              >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value={UnemploymentSupportEnum.No_me_importa}>
-                    Sí, quiero un país con apoyo social.
-                  </SelectItem>
-                  <SelectItem
-                    value={
-                      UnemploymentSupportEnum[
-                        "Sí,_quiero_un_país_con_apoyo_social"
-                      ]
-                    }
-                  >
-                    No me importa.
-                  </SelectItem>
-                </SelectContent>
-              </Select>
             </div>
             <Button className="w-full" size="default" type="submit">
               Enviar
