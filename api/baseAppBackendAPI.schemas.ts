@@ -7,6 +7,13 @@
  * API para el sistema de BaseApp Backend
  */
 
+export type FormsResultListParams = {
+  /**
+   * A search term.
+   */
+  search?: string;
+};
+
 export type FormsListParams = {
   /**
    * A search term.
@@ -53,6 +60,12 @@ export enum UnemploymentRateEnum {
 export interface TokenRefresh {
   readonly access: string;
   refresh: string;
+}
+
+export interface Result {
+  pais: string;
+  continente: string;
+  score: number;
 }
 
 export interface PatchedUser {

@@ -24,7 +24,9 @@ import type {
 import type {
   Form,
   FormsListParams,
+  FormsResultListParams,
   PatchedForm,
+  Result,
 } from "../baseAppBackendAPI.schemas";
 import { customAxios } from "../../lib/axiosInstance";
 
@@ -567,3 +569,143 @@ export const useFormsDestroy = <
 
   return useMutation(mutationOptions);
 };
+export const formsResultList = (
+  params?: FormsResultListParams,
+  signal?: AbortSignal,
+) => {
+  return customAxios<Result[]>({
+    url: `/api/forms/result/`,
+    method: "GET",
+    params,
+    signal,
+  });
+};
+
+export const getFormsResultListQueryKey = (params?: FormsResultListParams) => {
+  return [`/api/forms/result/`, ...(params ? [params] : [])] as const;
+};
+
+export const getFormsResultListQueryOptions = <
+  TData = Awaited<ReturnType<typeof formsResultList>>,
+  TError = unknown,
+>(
+  params?: FormsResultListParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof formsResultList>>,
+        TError,
+        TData
+      >
+    >;
+  },
+) => {
+  const { query: queryOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getFormsResultListQueryKey(params);
+
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof formsResultList>>> = ({
+    signal,
+  }) => formsResultList(params, signal);
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof formsResultList>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData> };
+};
+
+export type FormsResultListQueryResult = NonNullable<
+  Awaited<ReturnType<typeof formsResultList>>
+>;
+export type FormsResultListQueryError = unknown;
+
+export function useFormsResultList<
+  TData = Awaited<ReturnType<typeof formsResultList>>,
+  TError = unknown,
+>(
+  params: undefined | FormsResultListParams,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof formsResultList>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof formsResultList>>,
+          TError,
+          TData
+        >,
+        "initialData"
+      >;
+  },
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData>;
+};
+export function useFormsResultList<
+  TData = Awaited<ReturnType<typeof formsResultList>>,
+  TError = unknown,
+>(
+  params?: FormsResultListParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof formsResultList>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof formsResultList>>,
+          TError,
+          TData
+        >,
+        "initialData"
+      >;
+  },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+export function useFormsResultList<
+  TData = Awaited<ReturnType<typeof formsResultList>>,
+  TError = unknown,
+>(
+  params?: FormsResultListParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof formsResultList>>,
+        TError,
+        TData
+      >
+    >;
+  },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+
+export function useFormsResultList<
+  TData = Awaited<ReturnType<typeof formsResultList>>,
+  TError = unknown,
+>(
+  params?: FormsResultListParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof formsResultList>>,
+        TError,
+        TData
+      >
+    >;
+  },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
+  const queryOptions = getFormsResultListQueryOptions(params, options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: DataTag<QueryKey, TData>;
+  };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}

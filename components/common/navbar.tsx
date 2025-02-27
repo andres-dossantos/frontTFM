@@ -14,7 +14,12 @@ export const Navbar = () => {
         </li>
         <li>
           <Link href="/form" className="hover:underline">
-            Encuesta y Recomendación
+            Encuesta
+          </Link>
+        </li>
+        <li>
+          <Link href="/result" className="hover:underline">
+            Resultados de la encuesta
           </Link>
         </li>
         <li>
