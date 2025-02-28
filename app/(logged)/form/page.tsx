@@ -43,7 +43,7 @@ const Form = () => {
   const { mutate: createForm, isPending: loadingCreate } = useFormsCreate({
     mutation: {
       onSuccess: () => {
-        router.push("/home");
+        router.push("/result");
       },
     },
   });
@@ -51,7 +51,7 @@ const Form = () => {
   const { mutate: updateForm, isPending: loadingUpdate } = useFormsUpdate({
     mutation: {
       onSuccess: () => {
-        router.push("/home");
+        router.push("/result");
       },
     },
   });
@@ -530,7 +530,7 @@ const Form = () => {
 
             </div>
             <Button className="w-full" size="default" type="submit">
-              Enviar
+              Enviar y ver Resultados
               {(loadingCreate || loadingUpdate) && <Spinner />}
             </Button>
           </form>

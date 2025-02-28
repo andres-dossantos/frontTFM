@@ -23,7 +23,7 @@ export const Navbar = () => {
           </Link>
         </li>
         <li>
-          <a href="#" className="hover:underline">
+          <a href="/graph" className="hover:underline">
             Gráficas
           </a>
         </li>

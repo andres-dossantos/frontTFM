@@ -6,22 +6,21 @@ import { cn } from "@/lib/utils";
 
 interface RowProps {
   values?: Result;
-  index?: number; // Pasamos el índice para personalizar el estilo
+  index?: number;
 }
 
 const Row = ({ values, index }: RowProps) => {
   const isHeader = !values;
 
-  // Función para obtener estilos dependiendo del índice (primero, segundo, tercero)
   const getClassByIndex = (index: number | undefined) => {
     if (index === 0) {
-      return "text-5xl text-yellow-500 font-semibold shadow-md"; // Dorado glossy
+      return "text-5xl text-yellow-500 font-semibold shadow-md";
     } else if (index === 1) {
-      return "text-4xl text-gray-400 font-semibold shadow-md"; // Plateado glossy oscuro
+      return "text-4xl text-gray-400 font-semibold shadow-md";
     } else if (index === 2) {
-      return "text-3xl text-orange-600 font-semibold shadow-md"; // Bronce glossy
+      return "text-3xl text-orange-600 font-semibold shadow-md";
     }
-    return "text-xl"; // Estilo estándar para el resto
+    return "text-xl";
   };
 
   return (
