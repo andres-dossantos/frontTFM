@@ -4,8 +4,8 @@ import axios from "@/lib/axiosInstance";
 
 interface signUpData {
   username: string;
-  name: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   email: string;
   password: string;
 }
@@ -28,7 +28,7 @@ const useSignUp = ({ onSuccess }: props) => {
     },
     onSuccess: () => {
       toast.success("Account created successfully");
-      onSuccess && onSuccess();
+      !!onSuccess && onSuccess();
     },
   });
 };

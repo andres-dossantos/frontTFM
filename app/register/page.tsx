@@ -27,7 +27,7 @@ const RegisterPage = () => {
     username: "",
     email: "",
     password: "",
-    name: "",
+    firstName: "",
     lastName: "",
   });
 
@@ -43,8 +43,8 @@ const RegisterPage = () => {
       username: registerForm.username,
       email: registerForm.email,
       password: registerForm.password,
-      name: registerForm.name,
-      lastName: registerForm.lastName,
+      first_name: registerForm.firstName,
+      last_name: registerForm.lastName,
     });
   };
 
@@ -86,11 +86,11 @@ const RegisterPage = () => {
                 <Label htmlFor="password">Nombre</Label>
               </div>
               <Input
-                id="name"
-                type="name"
-                name="name"
+                id="firstName"
+                type="firstName"
+                name="firstName"
                 onChange={handleChange}
-                value={registerForm.name}
+                value={registerForm.firstName}
               />
             </div>
 
