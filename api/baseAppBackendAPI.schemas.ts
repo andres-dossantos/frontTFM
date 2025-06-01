@@ -7,14 +7,14 @@
  * API para el sistema de BaseApp Backend
  */
 
-export type FormsResultListParams = {
+export type ApiFormsResultListParams = {
   /**
    * A search term.
    */
   search?: string;
 };
 
-export type FormsListParams = {
+export type ApiFormsListParams = {
   /**
    * A search term.
    */
@@ -31,6 +31,10 @@ export interface UserRegistration {
   /** @maxLength 254 */
   email?: string;
   password: string;
+  /** @maxLength 150 */
+  first_name?: string;
+  /** @maxLength 150 */
+  last_name?: string;
 }
 
 export interface User {
@@ -66,6 +70,20 @@ export interface Result {
   pais: string;
   continente: string;
   score: number;
+}
+
+export interface PredictionUpload {
+  file: string;
+}
+
+export interface Prediction {
+  readonly id: number;
+  user: number;
+  ten_km_time: number;
+  half_marathon_time: number;
+  marathon_time: number;
+  readonly created_at: string;
+  readonly updated_at: string;
 }
 
 export interface PatchedUser {

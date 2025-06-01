@@ -22,8 +22,15 @@ import type {
   UseQueryResult,
 } from "@tanstack/react-query";
 import type {
+  ApiFormsListParams,
+  ApiFormsResultListParams,
   EmailTokenObtain,
+  Form,
+  PatchedForm,
   PatchedUser,
+  Prediction,
+  PredictionUpload,
+  Result,
   TokenRefresh,
   User,
   UserRegistration,
@@ -287,6 +294,1026 @@ export const useApiAuthRegisterCreate = <
   >;
 }): UseMutationResult<TData, TError, { data: UserRegistration }, TContext> => {
   const mutationOptions = getApiAuthRegisterCreateMutationOptions(options);
+
+  return useMutation(mutationOptions);
+};
+export const apiFormsList = (
+  params?: ApiFormsListParams,
+  signal?: AbortSignal,
+) => {
+  return customAxios<Form[]>({
+    url: `/api/forms/`,
+    method: "GET",
+    params,
+    signal,
+  });
+};
+
+export const getApiFormsListQueryKey = (params?: ApiFormsListParams) => {
+  return [`/api/forms/`, ...(params ? [params] : [])] as const;
+};
+
+export const getApiFormsListQueryOptions = <
+  TData = Awaited<ReturnType<typeof apiFormsList>>,
+  TError = unknown,
+>(
+  params?: ApiFormsListParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof apiFormsList>>, TError, TData>
+    >;
+  },
+) => {
+  const { query: queryOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getApiFormsListQueryKey(params);
+
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof apiFormsList>>> = ({
+    signal,
+  }) => apiFormsList(params, signal);
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof apiFormsList>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData> };
+};
+
+export type ApiFormsListQueryResult = NonNullable<
+  Awaited<ReturnType<typeof apiFormsList>>
+>;
+export type ApiFormsListQueryError = unknown;
+
+export function useApiFormsList<
+  TData = Awaited<ReturnType<typeof apiFormsList>>,
+  TError = unknown,
+>(
+  params: undefined | ApiFormsListParams,
+  options: {
+    query: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof apiFormsList>>, TError, TData>
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiFormsList>>,
+          TError,
+          TData
+        >,
+        "initialData"
+      >;
+  },
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData>;
+};
+export function useApiFormsList<
+  TData = Awaited<ReturnType<typeof apiFormsList>>,
+  TError = unknown,
+>(
+  params?: ApiFormsListParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof apiFormsList>>, TError, TData>
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiFormsList>>,
+          TError,
+          TData
+        >,
+        "initialData"
+      >;
+  },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+export function useApiFormsList<
+  TData = Awaited<ReturnType<typeof apiFormsList>>,
+  TError = unknown,
+>(
+  params?: ApiFormsListParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof apiFormsList>>, TError, TData>
+    >;
+  },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+
+export function useApiFormsList<
+  TData = Awaited<ReturnType<typeof apiFormsList>>,
+  TError = unknown,
+>(
+  params?: ApiFormsListParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof apiFormsList>>, TError, TData>
+    >;
+  },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
+  const queryOptions = getApiFormsListQueryOptions(params, options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: DataTag<QueryKey, TData>;
+  };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}
+
+export const apiFormsCreate = (
+  form: NonReadonly<Form>,
+  signal?: AbortSignal,
+) => {
+  return customAxios<Form>({
+    url: `/api/forms/`,
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    data: form,
+    signal,
+  });
+};
+
+export const getApiFormsCreateMutationOptions = <
+  TData = Awaited<ReturnType<typeof apiFormsCreate>>,
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    TData,
+    TError,
+    { data: NonReadonly<Form> },
+    TContext
+  >;
+}) => {
+  const mutationKey = ["apiFormsCreate"];
+  const { mutation: mutationOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey } };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof apiFormsCreate>>,
+    { data: NonReadonly<Form> }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return apiFormsCreate(data);
+  };
+
+  return { mutationFn, ...mutationOptions } as UseMutationOptions<
+    TData,
+    TError,
+    { data: NonReadonly<Form> },
+    TContext
+  >;
+};
+
+export type ApiFormsCreateMutationResult = NonNullable<
+  Awaited<ReturnType<typeof apiFormsCreate>>
+>;
+export type ApiFormsCreateMutationBody = NonReadonly<Form>;
+export type ApiFormsCreateMutationError = unknown;
+
+export const useApiFormsCreate = <
+  TData = Awaited<ReturnType<typeof apiFormsCreate>>,
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    TData,
+    TError,
+    { data: NonReadonly<Form> },
+    TContext
+  >;
+}): UseMutationResult<TData, TError, { data: NonReadonly<Form> }, TContext> => {
+  const mutationOptions = getApiFormsCreateMutationOptions(options);
+
+  return useMutation(mutationOptions);
+};
+export const apiFormsRetrieve = (id: number, signal?: AbortSignal) => {
+  return customAxios<Form>({ url: `/api/forms/${id}/`, method: "GET", signal });
+};
+
+export const getApiFormsRetrieveQueryKey = (id: number) => {
+  return [`/api/forms/${id}/`] as const;
+};
+
+export const getApiFormsRetrieveQueryOptions = <
+  TData = Awaited<ReturnType<typeof apiFormsRetrieve>>,
+  TError = unknown,
+>(
+  id: number,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof apiFormsRetrieve>>,
+        TError,
+        TData
+      >
+    >;
+  },
+) => {
+  const { query: queryOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getApiFormsRetrieveQueryKey(id);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof apiFormsRetrieve>>
+  > = ({ signal }) => apiFormsRetrieve(id, signal);
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!id,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof apiFormsRetrieve>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData> };
+};
+
+export type ApiFormsRetrieveQueryResult = NonNullable<
+  Awaited<ReturnType<typeof apiFormsRetrieve>>
+>;
+export type ApiFormsRetrieveQueryError = unknown;
+
+export function useApiFormsRetrieve<
+  TData = Awaited<ReturnType<typeof apiFormsRetrieve>>,
+  TError = unknown,
+>(
+  id: number,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof apiFormsRetrieve>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiFormsRetrieve>>,
+          TError,
+          TData
+        >,
+        "initialData"
+      >;
+  },
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData>;
+};
+export function useApiFormsRetrieve<
+  TData = Awaited<ReturnType<typeof apiFormsRetrieve>>,
+  TError = unknown,
+>(
+  id: number,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof apiFormsRetrieve>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiFormsRetrieve>>,
+          TError,
+          TData
+        >,
+        "initialData"
+      >;
+  },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+export function useApiFormsRetrieve<
+  TData = Awaited<ReturnType<typeof apiFormsRetrieve>>,
+  TError = unknown,
+>(
+  id: number,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof apiFormsRetrieve>>,
+        TError,
+        TData
+      >
+    >;
+  },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+
+export function useApiFormsRetrieve<
+  TData = Awaited<ReturnType<typeof apiFormsRetrieve>>,
+  TError = unknown,
+>(
+  id: number,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof apiFormsRetrieve>>,
+        TError,
+        TData
+      >
+    >;
+  },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
+  const queryOptions = getApiFormsRetrieveQueryOptions(id, options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: DataTag<QueryKey, TData>;
+  };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}
+
+export const apiFormsUpdate = (id: number, form: NonReadonly<Form>) => {
+  return customAxios<Form>({
+    url: `/api/forms/${id}/`,
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    data: form,
+  });
+};
+
+export const getApiFormsUpdateMutationOptions = <
+  TData = Awaited<ReturnType<typeof apiFormsUpdate>>,
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    TData,
+    TError,
+    { id: number; data: NonReadonly<Form> },
+    TContext
+  >;
+}) => {
+  const mutationKey = ["apiFormsUpdate"];
+  const { mutation: mutationOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey } };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof apiFormsUpdate>>,
+    { id: number; data: NonReadonly<Form> }
+  > = (props) => {
+    const { id, data } = props ?? {};
+
+    return apiFormsUpdate(id, data);
+  };
+
+  return { mutationFn, ...mutationOptions } as UseMutationOptions<
+    TData,
+    TError,
+    { id: number; data: NonReadonly<Form> },
+    TContext
+  >;
+};
+
+export type ApiFormsUpdateMutationResult = NonNullable<
+  Awaited<ReturnType<typeof apiFormsUpdate>>
+>;
+export type ApiFormsUpdateMutationBody = NonReadonly<Form>;
+export type ApiFormsUpdateMutationError = unknown;
+
+export const useApiFormsUpdate = <
+  TData = Awaited<ReturnType<typeof apiFormsUpdate>>,
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    TData,
+    TError,
+    { id: number; data: NonReadonly<Form> },
+    TContext
+  >;
+}): UseMutationResult<
+  TData,
+  TError,
+  { id: number; data: NonReadonly<Form> },
+  TContext
+> => {
+  const mutationOptions = getApiFormsUpdateMutationOptions(options);
+
+  return useMutation(mutationOptions);
+};
+export const apiFormsPartialUpdate = (
+  id: number,
+  patchedForm: NonReadonly<PatchedForm>,
+) => {
+  return customAxios<Form>({
+    url: `/api/forms/${id}/`,
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    data: patchedForm,
+  });
+};
+
+export const getApiFormsPartialUpdateMutationOptions = <
+  TData = Awaited<ReturnType<typeof apiFormsPartialUpdate>>,
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    TData,
+    TError,
+    { id: number; data: NonReadonly<PatchedForm> },
+    TContext
+  >;
+}) => {
+  const mutationKey = ["apiFormsPartialUpdate"];
+  const { mutation: mutationOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey } };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof apiFormsPartialUpdate>>,
+    { id: number; data: NonReadonly<PatchedForm> }
+  > = (props) => {
+    const { id, data } = props ?? {};
+
+    return apiFormsPartialUpdate(id, data);
+  };
+
+  return { mutationFn, ...mutationOptions } as UseMutationOptions<
+    TData,
+    TError,
+    { id: number; data: NonReadonly<PatchedForm> },
+    TContext
+  >;
+};
+
+export type ApiFormsPartialUpdateMutationResult = NonNullable<
+  Awaited<ReturnType<typeof apiFormsPartialUpdate>>
+>;
+export type ApiFormsPartialUpdateMutationBody = NonReadonly<PatchedForm>;
+export type ApiFormsPartialUpdateMutationError = unknown;
+
+export const useApiFormsPartialUpdate = <
+  TData = Awaited<ReturnType<typeof apiFormsPartialUpdate>>,
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    TData,
+    TError,
+    { id: number; data: NonReadonly<PatchedForm> },
+    TContext
+  >;
+}): UseMutationResult<
+  TData,
+  TError,
+  { id: number; data: NonReadonly<PatchedForm> },
+  TContext
+> => {
+  const mutationOptions = getApiFormsPartialUpdateMutationOptions(options);
+
+  return useMutation(mutationOptions);
+};
+export const apiFormsDestroy = (id: number) => {
+  return customAxios<void>({ url: `/api/forms/${id}/`, method: "DELETE" });
+};
+
+export const getApiFormsDestroyMutationOptions = <
+  TData = Awaited<ReturnType<typeof apiFormsDestroy>>,
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<TData, TError, { id: number }, TContext>;
+}) => {
+  const mutationKey = ["apiFormsDestroy"];
+  const { mutation: mutationOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey } };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof apiFormsDestroy>>,
+    { id: number }
+  > = (props) => {
+    const { id } = props ?? {};
+
+    return apiFormsDestroy(id);
+  };
+
+  return { mutationFn, ...mutationOptions } as UseMutationOptions<
+    TData,
+    TError,
+    { id: number },
+    TContext
+  >;
+};
+
+export type ApiFormsDestroyMutationResult = NonNullable<
+  Awaited<ReturnType<typeof apiFormsDestroy>>
+>;
+
+export type ApiFormsDestroyMutationError = unknown;
+
+export const useApiFormsDestroy = <
+  TData = Awaited<ReturnType<typeof apiFormsDestroy>>,
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<TData, TError, { id: number }, TContext>;
+}): UseMutationResult<TData, TError, { id: number }, TContext> => {
+  const mutationOptions = getApiFormsDestroyMutationOptions(options);
+
+  return useMutation(mutationOptions);
+};
+export const apiFormsResultList = (
+  params?: ApiFormsResultListParams,
+  signal?: AbortSignal,
+) => {
+  return customAxios<Result[]>({
+    url: `/api/forms/result/`,
+    method: "GET",
+    params,
+    signal,
+  });
+};
+
+export const getApiFormsResultListQueryKey = (
+  params?: ApiFormsResultListParams,
+) => {
+  return [`/api/forms/result/`, ...(params ? [params] : [])] as const;
+};
+
+export const getApiFormsResultListQueryOptions = <
+  TData = Awaited<ReturnType<typeof apiFormsResultList>>,
+  TError = unknown,
+>(
+  params?: ApiFormsResultListParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof apiFormsResultList>>,
+        TError,
+        TData
+      >
+    >;
+  },
+) => {
+  const { query: queryOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ?? getApiFormsResultListQueryKey(params);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof apiFormsResultList>>
+  > = ({ signal }) => apiFormsResultList(params, signal);
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof apiFormsResultList>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData> };
+};
+
+export type ApiFormsResultListQueryResult = NonNullable<
+  Awaited<ReturnType<typeof apiFormsResultList>>
+>;
+export type ApiFormsResultListQueryError = unknown;
+
+export function useApiFormsResultList<
+  TData = Awaited<ReturnType<typeof apiFormsResultList>>,
+  TError = unknown,
+>(
+  params: undefined | ApiFormsResultListParams,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof apiFormsResultList>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiFormsResultList>>,
+          TError,
+          TData
+        >,
+        "initialData"
+      >;
+  },
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData>;
+};
+export function useApiFormsResultList<
+  TData = Awaited<ReturnType<typeof apiFormsResultList>>,
+  TError = unknown,
+>(
+  params?: ApiFormsResultListParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof apiFormsResultList>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiFormsResultList>>,
+          TError,
+          TData
+        >,
+        "initialData"
+      >;
+  },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+export function useApiFormsResultList<
+  TData = Awaited<ReturnType<typeof apiFormsResultList>>,
+  TError = unknown,
+>(
+  params?: ApiFormsResultListParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof apiFormsResultList>>,
+        TError,
+        TData
+      >
+    >;
+  },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+
+export function useApiFormsResultList<
+  TData = Awaited<ReturnType<typeof apiFormsResultList>>,
+  TError = unknown,
+>(
+  params?: ApiFormsResultListParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof apiFormsResultList>>,
+        TError,
+        TData
+      >
+    >;
+  },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
+  const queryOptions = getApiFormsResultListQueryOptions(params, options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: DataTag<QueryKey, TData>;
+  };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}
+
+export const apiPredictionsList = (signal?: AbortSignal) => {
+  return customAxios<Prediction[]>({
+    url: `/api/predictions/`,
+    method: "GET",
+    signal,
+  });
+};
+
+export const getApiPredictionsListQueryKey = () => {
+  return [`/api/predictions/`] as const;
+};
+
+export const getApiPredictionsListQueryOptions = <
+  TData = Awaited<ReturnType<typeof apiPredictionsList>>,
+  TError = unknown,
+>(options?: {
+  query?: Partial<
+    UseQueryOptions<
+      Awaited<ReturnType<typeof apiPredictionsList>>,
+      TError,
+      TData
+    >
+  >;
+}) => {
+  const { query: queryOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getApiPredictionsListQueryKey();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof apiPredictionsList>>
+  > = ({ signal }) => apiPredictionsList(signal);
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof apiPredictionsList>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData> };
+};
+
+export type ApiPredictionsListQueryResult = NonNullable<
+  Awaited<ReturnType<typeof apiPredictionsList>>
+>;
+export type ApiPredictionsListQueryError = unknown;
+
+export function useApiPredictionsList<
+  TData = Awaited<ReturnType<typeof apiPredictionsList>>,
+  TError = unknown,
+>(options: {
+  query: Partial<
+    UseQueryOptions<
+      Awaited<ReturnType<typeof apiPredictionsList>>,
+      TError,
+      TData
+    >
+  > &
+    Pick<
+      DefinedInitialDataOptions<
+        Awaited<ReturnType<typeof apiPredictionsList>>,
+        TError,
+        TData
+      >,
+      "initialData"
+    >;
+}): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData>;
+};
+export function useApiPredictionsList<
+  TData = Awaited<ReturnType<typeof apiPredictionsList>>,
+  TError = unknown,
+>(options?: {
+  query?: Partial<
+    UseQueryOptions<
+      Awaited<ReturnType<typeof apiPredictionsList>>,
+      TError,
+      TData
+    >
+  > &
+    Pick<
+      UndefinedInitialDataOptions<
+        Awaited<ReturnType<typeof apiPredictionsList>>,
+        TError,
+        TData
+      >,
+      "initialData"
+    >;
+}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+export function useApiPredictionsList<
+  TData = Awaited<ReturnType<typeof apiPredictionsList>>,
+  TError = unknown,
+>(options?: {
+  query?: Partial<
+    UseQueryOptions<
+      Awaited<ReturnType<typeof apiPredictionsList>>,
+      TError,
+      TData
+    >
+  >;
+}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+
+export function useApiPredictionsList<
+  TData = Awaited<ReturnType<typeof apiPredictionsList>>,
+  TError = unknown,
+>(options?: {
+  query?: Partial<
+    UseQueryOptions<
+      Awaited<ReturnType<typeof apiPredictionsList>>,
+      TError,
+      TData
+    >
+  >;
+}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
+  const queryOptions = getApiPredictionsListQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: DataTag<QueryKey, TData>;
+  };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}
+
+export const apiPredictionsRetrieve = (id: string, signal?: AbortSignal) => {
+  return customAxios<Prediction>({
+    url: `/api/predictions/${id}/`,
+    method: "GET",
+    signal,
+  });
+};
+
+export const getApiPredictionsRetrieveQueryKey = (id: string) => {
+  return [`/api/predictions/${id}/`] as const;
+};
+
+export const getApiPredictionsRetrieveQueryOptions = <
+  TData = Awaited<ReturnType<typeof apiPredictionsRetrieve>>,
+  TError = unknown,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof apiPredictionsRetrieve>>,
+        TError,
+        TData
+      >
+    >;
+  },
+) => {
+  const { query: queryOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ?? getApiPredictionsRetrieveQueryKey(id);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof apiPredictionsRetrieve>>
+  > = ({ signal }) => apiPredictionsRetrieve(id, signal);
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!id,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof apiPredictionsRetrieve>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData> };
+};
+
+export type ApiPredictionsRetrieveQueryResult = NonNullable<
+  Awaited<ReturnType<typeof apiPredictionsRetrieve>>
+>;
+export type ApiPredictionsRetrieveQueryError = unknown;
+
+export function useApiPredictionsRetrieve<
+  TData = Awaited<ReturnType<typeof apiPredictionsRetrieve>>,
+  TError = unknown,
+>(
+  id: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof apiPredictionsRetrieve>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiPredictionsRetrieve>>,
+          TError,
+          TData
+        >,
+        "initialData"
+      >;
+  },
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData>;
+};
+export function useApiPredictionsRetrieve<
+  TData = Awaited<ReturnType<typeof apiPredictionsRetrieve>>,
+  TError = unknown,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof apiPredictionsRetrieve>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiPredictionsRetrieve>>,
+          TError,
+          TData
+        >,
+        "initialData"
+      >;
+  },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+export function useApiPredictionsRetrieve<
+  TData = Awaited<ReturnType<typeof apiPredictionsRetrieve>>,
+  TError = unknown,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof apiPredictionsRetrieve>>,
+        TError,
+        TData
+      >
+    >;
+  },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+
+export function useApiPredictionsRetrieve<
+  TData = Awaited<ReturnType<typeof apiPredictionsRetrieve>>,
+  TError = unknown,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof apiPredictionsRetrieve>>,
+        TError,
+        TData
+      >
+    >;
+  },
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
+  const queryOptions = getApiPredictionsRetrieveQueryOptions(id, options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: DataTag<QueryKey, TData>;
+  };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}
+
+export const apiPredictionsUploadCsvCreate = (
+  predictionUpload: PredictionUpload,
+  signal?: AbortSignal,
+) => {
+  return customAxios<PredictionUpload>({
+    url: `/api/predictions/upload_csv/`,
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    data: predictionUpload,
+    signal,
+  });
+};
+
+export const getApiPredictionsUploadCsvCreateMutationOptions = <
+  TData = Awaited<ReturnType<typeof apiPredictionsUploadCsvCreate>>,
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    TData,
+    TError,
+    { data: PredictionUpload },
+    TContext
+  >;
+}) => {
+  const mutationKey = ["apiPredictionsUploadCsvCreate"];
+  const { mutation: mutationOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey } };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof apiPredictionsUploadCsvCreate>>,
+    { data: PredictionUpload }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return apiPredictionsUploadCsvCreate(data);
+  };
+
+  return { mutationFn, ...mutationOptions } as UseMutationOptions<
+    TData,
+    TError,
+    { data: PredictionUpload },
+    TContext
+  >;
+};
+
+export type ApiPredictionsUploadCsvCreateMutationResult = NonNullable<
+  Awaited<ReturnType<typeof apiPredictionsUploadCsvCreate>>
+>;
+export type ApiPredictionsUploadCsvCreateMutationBody = PredictionUpload;
+export type ApiPredictionsUploadCsvCreateMutationError = unknown;
+
+export const useApiPredictionsUploadCsvCreate = <
+  TData = Awaited<ReturnType<typeof apiPredictionsUploadCsvCreate>>,
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    TData,
+    TError,
+    { data: PredictionUpload },
+    TContext
+  >;
+}): UseMutationResult<TData, TError, { data: PredictionUpload }, TContext> => {
+  const mutationOptions =
+    getApiPredictionsUploadCsvCreateMutationOptions(options);
 
   return useMutation(mutationOptions);
 };
